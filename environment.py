@@ -5,23 +5,18 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
-
 class Environment:
     def __init__(self, data, history_length=10, batch_size=30):
         # preprocess and make data in needed format
-        self.dataX, self.dataY = self._make_data(
-            self._preprocess_data(data), history_length
-        )
+        self.dataX, self.dataY = self._make_data(self._preprocess_data(data), history_length)
         self.history_length = history_length
         self.batch_size = batch_size
 
     def reset(self):
         # get the date iter
-        self.data_iter = self._make_data_iter(
-            self.dataX, self.dataY, batch_size=self.batch_size
-        )
-        # get first week data
-        self.current_month_data, self.targets = next(self.data_iter)
+        self.data_iter = self._make_data_iter(self.dataX, self.dataY, batch_size=self.batch_size)
+        # get first month data
+        self.current_month_data, _ = next(self.data_iter)
         # set day 0
         self.current_day = 0
         # set done to false
@@ -49,8 +44,8 @@ class Environment:
         self.execute_action(action)
 
         if self.done:
-            # month ended, get next week data
-            self.current_month_data, self.targets = next(self.data_iter)
+            # month ended, get next month data
+            self.current_month_data, _ = next(self.data_iter)
             self.current_day = 0
         else:
             # next day
@@ -61,25 +56,15 @@ class Environment:
 
         # reward 1 means profit, -1 means loss, 0 means no profit no loss
         if action == 1:
-            reward = (
-                1
-                if next_day_close_price < -10
-                else -1 if next_day_close_price > 10 else 0
-            )
+            reward = 1 if next_day_close_price < -10 else -1 if next_day_close_price > 10 else 0
         else:
-            reward = (
-                1
-                if next_day_close_price > 10
-                else -1 if next_day_close_price < -10 else 0
-            )
+            reward = 1 if next_day_close_price > 10 else -1 if next_day_close_price < -10 else 0
 
         # check if the month ended
         self.done = True if self.current_day == self.batch_size - 1 else False
+
         #  return the next day data, reward and done
         return self.current_month_data[self.current_day], reward, self.done
-
-    def __str__(self):
-        return f"Environment: {self.current_month_data[self.current_day]}"
 
     def _preprocess_data(self, df):
         df = df.dropna()
@@ -121,8 +106,8 @@ if __name__ == "__main__":
         raw_data = pd.read_csv("crypto_data/train_data.csv")
         env = Environment(raw_data)
         price = env.reset()
-        price, reward, done = env.step(0)
-        print(price, reward, done)
+        next_day_price, reward, done = env.step(0) # buy
+        print(next_day_price, reward, done)
 
         for i in range(10000):
             price, reward, done = env.step(0)
