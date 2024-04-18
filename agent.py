@@ -8,17 +8,14 @@ from torch.utils.data import DataLoader, TensorDataset
 from environment import Environment
 
 from collections import deque
-import random
 
 MAX_MEMORY = 100
-# BATCH_SIZE = 100
 LR = 0.001
 
 class Agent:
     def __init__(self, model, data_path):
         self.model = model
         self.memory = deque(maxlen=MAX_MEMORY)
-        # self.batch_size = BATCH_SIZE
         raw_data = pd.read_csv(data_path)
         self.env = Environment(raw_data)
         self.lr=LR
@@ -29,7 +26,7 @@ class Agent:
         return self.env.get_state()
 
     def get_action(self, state):
-        state = torch.tensor(state, dtype=torch.float).unsqueeze(0)
+        state = torch.tensor(state, dtype=torch.float).unsqueeze(0) # [10, 4] -> [1, 10, 4]
         prediction = self.model(state)
         return torch.argmax(prediction).item()
     
@@ -37,14 +34,11 @@ class Agent:
         self.memory.append((state, action, reward))
 
     def train_long_memory(self):
-        # if len(self.memory) > BATCH_SIZE:
-        #     mini_sample = random.sample(self.memory, BATCH_SIZE)
-        # else:
         mini_sample = self.memory
         states, actions, rewards = zip(*mini_sample)
         states = np.array(states)
         states = torch.tensor(states, dtype=torch.float)
-        actions = torch.tensor(actions, dtype=torch.long).reshape(-1, 1)
+        actions = torch.tensor(actions, dtype=torch.long).reshape(-1, 1) # [1, 0, 1] -> [[1], [0], [1]]
         rewards = torch.tensor(rewards, dtype=torch.long).reshape(-1, 1)
         return self.train_step(states, actions, rewards)
 

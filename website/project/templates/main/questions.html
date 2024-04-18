@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- range loop -->
+{% for i in range(len) %}
+<div class="main-questions">
+  <div class="question" data-answer="{{questions[i].Answer}}" data-qid="{{questions[i].QID}}">
+    <p>{{count+i}}. {{questions[i].Question}}</p>
+    <div class="options">
+      
+      {% if answers[questions[i].QID] and answers[questions[i].QID][0] == "optionA" %}
+      <a onclick="checkAnswer(this)" class="option optionA {{answers[questions[i].QID][1]}}">A:
+        <span>{{questions[i].OptionA}}</span></a>
+      {% else %}
+      <a onclick="checkAnswer(this)" class="option optionA">A: <span>{{questions[i].OptionA}}</span></a>
+      {% endif %}
+
+      {% if answers[questions[i].QID] and answers[questions[i].QID][0] == "optionB" %}
+      <a onclick="checkAnswer(this)" class="option optionB {{answers[questions[i].QID][1]}}">B:
+        <span>{{questions[i].OptionB}}</span></a>
+      {% else %}
+      <a onclick="checkAnswer(this)" class="option optionB">B: <span>{{questions[i].OptionB}}</span></a>
+      {% endif %}
+
+      {% if answers[questions[i].QID] and answers[questions[i].QID][0] == "optionC" %}
+      <a onclick="checkAnswer(this)" class="option optionC {{answers[questions[i].QID][1]}}">C:
+        <span>{{questions[i].OptionC}}</span></a>
+      {% else %}
+      <a onclick="checkAnswer(this)" class="option optionC">C: <span>{{questions[i].OptionC}}</span></a>
+      {% endif %}
+
+      {% if answers[questions[i].QID] and answers[questions[i].QID][0] == "optionD" %}
+      <a onclick="checkAnswer(this)" class="option optionD {{answers[questions[i].QID][1]}}">D:
+        <span>{{questions[i].OptionD}}</span></a>
+      {% else %}
+      <a onclick="checkAnswer(this)" class="option optionD">D: <span>{{questions[i].OptionD}}</span></a>
+      {% endif %}
+
+    </div>
+
+  </div>
+</div>
+{% endfor %}
+
+
+{% endblock %}

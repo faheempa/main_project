@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="about-container">
+  <div class="responsive-container-block outer-container">
+    <div class="responsive-container-block inner-container">
+      <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-4 wk-ipadp-5 content-container">
+        <div class="content-box">
+          <p class="text-blk section-head">
+            TRADESHARK
+          </p>
+          <p class="text-blk section-body">
+            TradeShark empowers you to navigate the dynamic world of cryptocurrency trading with confidence. We
+            leverage the power of artificial intelligence (AI) and machine learning (ML) to provide a comprehensive
+            set of tools designed to elevate your trading experience.
+          </p>
+        </div>
+      </div>
+      <div class="responsive-cell-block wk-tab-12 wk-mobile-12 wk-desk-4 wk-ipadp-5 content-container">
+        <div class="content-box">
+          <p class="text-blk section-head">
+            OUR TEAM
+          </p>
+          <p class="text-blk section-body">
+            Discover the powerhouse behind TradeShark, a passionate and talented team dedicated to delivering
+            exceptional solutions and creating a positive impact.
+          </p>
+        </div>
+      </div>
+      <div class="responsive-cell-block wk-ipadp-6 wk-tab-12 wk-mobile-12 wk-desk-8 team-cards-outer-container">
+        <div class="responsive-container-block team-cards-inner-container">
+          <div class="responsive-cell-block wk-mobile-12 wk-ipadp-10 wk-tab-8 wk-desk-6 card-container">
+            <div class="card">
+              <div class="img-box">
+                <img class="person-img" src="{{url_for('static', filename='img/fahi.png')}}">
+              </div>
+              <div class="card-content-box">
+                <p class="text-blk person-name">
+                  FAHEEM P A
+                </p>
+                <p class="text-blk person-info">
+                  Final year Btech CSE
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="responsive-cell-block wk-mobile-12 wk-ipadp-10 wk-tab-8 wk-desk-6 card-container">
+            <div class="card">
+              <div class="img-box">
+                <img class="person-img" src="{{url_for('static', filename='img/pranav.png')}}">
+              </div>
+              <div class="card-content-box">
+                <p class="text-blk person-name">
+                  PRANAV K P
+                </p>
+                <p class="text-blk person-info">
+                  Final year Btech CSE
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="responsive-container-block team-cards-inner-container">
+          <div class="responsive-cell-block wk-mobile-12 wk-ipadp-10 wk-tab-8 wk-desk-6 card-container">
+            <div class="card">
+              <div class="img-box">
+                <img class="person-img" src="{{url_for('static', filename='img/diya.png')}}">
+              </div>
+              <div class="card-content-box">
+                <p class="text-blk person-name">
+                  DIYA ANNA MATHEW
+                </p>
+                <p class="text-blk person-info">
+                  Fin al year Btech CSE
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="responsive-cell-block wk-mobile-12 wk-ipadp-10 wk-tab-8 wk-desk-6 card-container">
+            <div class="card">
+              <div class="img-box">
+                <img class="person-img" src="{{url_for('static', filename='img/alan.png')}}">
+              </div>
+              <div class="card-content-box">
+                <p class="text-blk person-name">
+                  ALAN SAVIO
+                </p>
+                <p class="text-blk person-info">
+                  Final year Btech CSE
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="d-flex justify-content-between">
+    <a href="{{url_for('admin.add_question')}}" class="btn btn-dark btn-lg mt-3 " style="font-size: 2rem;"><i
+            class="fa fa-plus"></i> Add New Question</button></a>
+    <button class="btn btn-outline-danger mt-3"><a href="{{url_for('signup_and_login.logout')}}">logout</a></button>
+</div>
+
+{% if items %}
+<div class="admin-questions">
+    {% for item in items %}
+    <div class="question">
+        <div class="details">
+            <p class="q"><b>Question:</b> {{item.Question}}</p>
+            <p class="answer"><b>Answer:</b> {{item.Answer}}</p>
+            <p class="section"><b>Section:</b> {{item.Section}}</p>
+            <p class="topic"><b>Topic:</b> {{item.Topic}}</p>
+        </div>
+        <div class="buttons">
+            <a href="/admin/remove/{{item.QID}}">
+                <i class="fa fa-solid fa-trash"></i>
+            </a>
+            <a href="/admin/update_question/{{item.QID}}">
+                <i class="fa fa-solid fa-edit"></i>
+            </a>
+
+        </div>
+
+    </div>
+    {% endfor %}`
+</div>
+{% endif %}
+
+<div class="page_nav">
+    {% if items.prev_num %}
+    <a class="btn btn-outline-info" href="{{ url_for('admin.admin_home', page=items.prev_num) }}">Previous Page</a>
+    {% else %}
+    <a class="btn btn-outline-info" href="{{ url_for('admin.admin_home', page=1) }}">Previous Page</a>
+    {% endif %}
+
+    <a class="btn btn-info" href="{{ url_for('admin.admin_home', page=items.page) }}">{{ items.page }}</a>
+
+    {% if items.next_num %}
+    <a class="btn btn-outline-info" href="{{ url_for('admin.admin_home', page=items.next_num) }}">Next page</a>
+    {% else %}
+    <a class="btn btn-outline-info" href="{{ url_for('admin.admin_home', page=items.page) }}">Next page</a>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

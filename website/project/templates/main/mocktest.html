@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- make 3 links for 3 levels -->
+<div class="mock-level-container">
+    <a href="/mocktest/easy" class="mock-level-box">
+        <div class="mock-level">
+            <h3>EASY</h3>
+            <p>10 Questions</p>
+            <p>20 Minutes</p>
+        </div>
+        <button type="button" class="btn btn-primary">START TEST</button>
+    </a>
+    <a href="/mocktest/medium" class="mock-level-box">
+        <div class="mock-level">
+            <h3>MEDIUM</h3>
+            <p>10 Questions</p>
+            <p>20 Minutes</p>
+        </div>
+        <button type="button" class="btn btn-primary">START TEST</button>
+    </a>
+    <a href="/mocktest/hard" class="mock-level-box">
+        <div class="mock-level">
+            <h3>HARD</h3>
+            <p>10 Questions</p>
+            <p>20 Minutes</p>
+        </div>
+        <button type="button" class="btn btn-primary">START TEST</button>
+    </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+flask
+flask_sqlalchemy
+sqlalchemy
+email_validator
+flask_wtf
+flask_login
+flask_bcrypt
+Pillow
+wtforms
+pytest
+gunicorn
+python-dotenv
+mysql-connector-python

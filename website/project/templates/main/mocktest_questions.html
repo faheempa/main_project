@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- range loop -->
+<div class="mock-questions">
+    {% for i in range(len) %}
+    <div class="question" data-qid="{{questions[i].QID}}" data-answer="{{questions[i].Answer}}">
+        <p>{{count+i}}. {{questions[i].Question}}</p>
+        <div class="options">
+            <a onclick="mark_option(this)" class="option optionA">A: <span>{{questions[i].OptionA}}</span></a>
+            <a onclick="mark_option(this)" class="option optionB">B: <span>{{questions[i].OptionB}}</span></a>
+            <a onclick="mark_option(this)" class="option optionC">C: <span>{{questions[i].OptionC}}</span></a>
+            <a onclick="mark_option(this)" class="option optionD">D: <span>{{questions[i].OptionD}}</span></a>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="btns">
+        <button class="btn submit-btn">Submit</button>
+        <button class="btn reset-btn">Reset</button>
+        <a href="{{url_for('main.mocktest')}}" class="btn retest-btn d-none">Take an Another Test</a>
+    </div>
+
+</div>
+
+{% endblock %}

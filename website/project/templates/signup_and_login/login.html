@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<div>
+    <div class="content-section login-container">
+        <form method="POST" action="" class="login-form">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join Today</legend>
+
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %}
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %}
+                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                
+                <div class="d-flex justify-content-between">
+                    <div class="form-group">
+                        {{ form.submit(class="btn btn-outline-info") }}
+                    </div>
+                    <small class="text-muted">
+                        <a href="{{ url_for('signup_and_login.reset_request') }}"><span class="link">Forgot
+                                Password?</span></a>
+                    </small>
+    
+                </div>
+            </fieldset>
+            <div class="border-top">
+                <small class="text-muted">
+                    Need An Account? <a class="ml-2" href="{{ url_for('signup_and_login.register') }}"> <span class="link"> Sign
+                            Up Now</span></a>
+                </small>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+<div class="hero-container">
+    <div class="hero-row">
+        <div class="text">
+            <h1><i>What is Crytocurrency trading?</i></h1>
+            <p>
+                Cryptocurrency trading involves the buying, selling, and exchange of digital currencies like Bitcoin,
+                Ethereum, and others on specialized platforms called cryptocurrency exchanges. Traders aim to profit
+                from the price movements of these digital assets by speculating on their future value. They analyze
+                market trends, technical indicators, and news to make informed trading decisions.
+                <br><br>
+                Cryptocurrency trading
+                offers opportunities for investors to diversify their portfolios and potentially earn significant
+                returns, but it also carries risks due to the volatile nature of the market. Users can access trading
+                platforms to execute trades, manage their portfolios, and engage in various trading strategies.
+            </p>
+        </div>
+        <div class="image"><img src="{{url_for('static', filename='img/computer.png')}}" alt="computer-img"></div>
+    </div>
+
+    <div class="hero-row">
+        <div class="image"><img src="{{url_for('static', filename='img/success.png')}}" alt="success-img"></div>
+        <div class="text">
+            <h1><i>Why TradeShark?</i>
+            </h1>
+            <p>
+                TradeShark empowers you to navigate the dynamic world of cryptocurrency trading with confidence. We
+                leverage the power of artificial intelligence (AI) and machine learning (ML) to provide a comprehensive
+                set of tools designed to elevate your trading experience.
+                <br><br>
+                Our AI models are continuously learning and evolving, adapting to changing
+                market conditions and providing you with the latest insights. Test your trading strategies against
+                historical data to assess their potential effectiveness and optimize your approach before risking real
+                capital. 
+                <br>
+                (Disclaimer: Past performance is not necessarily indicative of future results.)
+            </p>
+        </div>
+    </div>
+    <a class="get-started mt-5" href="{{url_for('main.trade')}}">GET STARTED</a>
+</div>
+
+<style>
+    body {
+        background: rgb(233, 251, 250);
+        background: linear-gradient(184deg, rgba(233, 251, 250, 1) 10%, rgba(255, 214, 214, 1) 83%);
+    }
+</style>
+
+
+
+{% endblock %}

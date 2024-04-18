@@ -1,0 +1,155 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- make a run button -->
+<button class="run_btn">RUN THE AGENT</button>
+
+<style>
+      .run_btn {
+            margin: 15px;
+            padding: 10px;
+            background-color: var(--dark-blue);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            margin-left: 39vw;
+            border-radius: 10px 20px;
+      }
+      .run_btn:hover {
+            background-color: #21fbff;
+            color: black;
+      }
+</style>
+
+<div class="calander">
+      {% for year_count, value in calender %}
+      <div class="year_count">{{ year_count }}</div>
+      <div class="year">
+            {% for month in value %}
+            <div class="month">
+                  <h2>{{month[0]}}</h2>
+                  <div class="days">
+                        {% for day in range(1, month[1]+1) %}
+                        <div class="day" data-date="{{ year_count }}-{{ month[0] }}-{{ day }}">
+                              {{ day }}
+                        </div>
+                        {% endfor %}
+                  </div>
+            </div>
+            {% endfor %}
+      </div>
+      {% endfor %}
+</div>
+
+<script>
+      function changeColor(element, action) {
+            if (action == 0) {
+                  element.style.backgroundColor = '#297eff';
+            } else if (action == 1) {
+                  element.style.backgroundColor = '#ff6430';
+            } else if (action == 2) {
+                  element.style.backgroundColor = '#fff945';
+            }
+      }
+
+      async function processDaysSequentially() {
+            try {
+                  // Get all the days
+                  const days = document.querySelectorAll('.day');
+                  // Loop through each day sequentially
+                  for (let index = 0; index < days.length; index++) {
+                        const day = days[index];
+
+                        // get date
+                        const date = day.getAttribute('data-date');
+
+                        // Call the endpoint /predict for the current day
+                        const response = await fetch('/predict/' + date);
+
+                        // Ensure the response is ok before proceeding
+                        if (!response.ok) {
+                              throw new Error('Network response was not ok');
+                        }
+
+                        // Parse the response JSON
+                        const data = await response.json();
+
+                        // Change the color of the day based on the prediction
+                        changeColor(day, data['action']);
+                  }
+            } catch (error) {
+                  console.error('There was a problem with the fetch operation:', error);
+            }
+      }
+
+      document.querySelector('.run_btn').addEventListener('click', () => {
+            document.querySelector('.run_btn').disabled = true;
+            processDaysSequentially();
+      })
+</script>
+
+<style>
+      .year_count {
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0px;
+      }
+
+      .month {
+            width: 250px;
+            height: fit-content;
+            margin-bottom: 10px;
+      }
+
+      .month h2 {
+            text-align: center;
+      }
+
+      .days {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            flex-direction: row;
+      }
+
+      .day {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            display: inline-block;
+            border: 1px solid black;
+            text-align: center;
+            margin: 1px;
+      }
+
+      .calander {
+            width: 1000px;
+            margin: 0px auto;
+      }
+
+      .year {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            flex-direction: row;
+      }
+
+      .calander {
+            /* cursor show be arrow all the time */
+            cursor: default;
+            /* set selection off */
+            -webkit-user-select: none;
+            /* Chrome/Safari */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* IE10+ */
+            /* selection off */
+            user-select: none;
+      }
+</style>
+
+{% endblock %}

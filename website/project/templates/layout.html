@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+      <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script defer src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+      <script defer src="https://kit.fontawesome.com/ebbc1aa60f.js" crossorigin="anonymous"></script>
+      <script defer src="{{url_for('static', filename='js/propper.js')}}"></script>
+      <script defer src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+      <script defer src="{{url_for('static', filename='js/app.js')}}"></script>
+
+      <title>{{ title }}</title>
+
+</head>
+
+<body>
+      <!-- preloader -->
+      <div id="preloader"></div>
+
+      <!-- navbar -->
+      <nav>
+            <div class="logo"><a href="{{url_for('main.home')}}">
+                        <img src="{{url_for('static', filename='img/skillsharp-logo.png')}}" alt="logo">
+                        <i>TRADESHARK</i>
+                  </a>
+            </div>
+            <ul class="navigation">
+                  <li><a href="{{url_for('main.home')}}">HOME</a></li>
+                  <li><a href="{{url_for('main.trade')}}">TRADING</a></li>
+                  <!-- <li><a href="{{url_for('main.mocktest')}}">MOCK TEST</a></li> -->
+                  <li><a href="{{url_for('main.about')}}">ABOUT US</a></li>
+                  {% if current_user.is_authenticated %}
+                  {% if current_user.username == "admin" %}
+                  <li><a class="pic" href="{{url_for('admin.admin_home')}}">
+                              <img src="{{ url_for('static', filename='img/skillsharp-logo.png') }}" alt="dp">
+                        </a>
+                  </li>
+                  {% else %}
+                  <li><a class="pic" href="{{url_for('signup_and_login.account')}}">
+                              <img src="{{ url_for('static', filename='img/dp/' + current_user.image_file) }}" alt="dp">
+                        </a>
+                  </li>
+                  {% endif %}
+                  {% else %}
+                  <li><a href="{{url_for('signup_and_login.login')}}">LOGIN</a></li>
+                  {% endif %}
+
+            </ul>
+            <div class="hamburger">
+                  <i class="fa-solid fa-bars on" id="on"></i>
+            </div>
+            <div class="alert">
+                  <ul class="navigation1">
+                        <i class='bx bxs-x-circle close'></i>
+                        <li><a href="{{url_for('main.home')}}" class="out">HOME</a></li>
+                        <li><a href="{{url_for('main.trade')}}" class="out">TRADE</a></li>
+                        <!-- <li><a href="{{url_for('main.mocktest')}}" class="out">MOCK TEST</a></li> -->
+                        <li><a href="{{url_for('main.about')}}" class="out">ABOUT US</a></li>
+                        {% if current_user.is_authenticated %}
+                        {% if current_user.username == "admin" %}
+                        <li><a href="{{url_for('admin.admin_home')}}">
+                                    <img src="{{ url_for('static', filename='img/skillsharp-logo.png') }}"
+                                          alt="dp">
+                              </a>
+                        </li>
+                        {% else %}
+                        <li><a href="{{url_for('signup_and_login.account')}}">
+                                    <img src="{{ url_for('static', filename='img/dp/' + current_user.image_file) }}"
+                                          alt="dp">
+                              </a>
+                        </li>
+                        {% endif %}
+                        {% else %}
+                        <li><a href="{{url_for('signup_and_login.login')}}">LOGIN</a></li>
+                        {% endif %}
+                  </ul>
+                  </i>
+            </div>
+      </nav>
+
+      <div class="col-md-8">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                  {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+      </div>
+
+      {% block content %}{% endblock %}
+
+      <!-- footer -->
+      <footer>
+            <div class="footer-bottom">
+                  &copy; TRADESHARK | Designed by <a href="{{url_for('main.about')}}">Team TradeShark</a>
+            </div>
+      </footer>
+</body>
+
+</html>
+
+<script>
+      var loader = document.querySelector("#preloader");
+      window.addEventListener("load", function () {
+            loader.style.display = "none";
+      })
+</script>
